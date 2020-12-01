@@ -1,0 +1,299 @@
+"Advent of Code 2020 Day 01" by Roger
+
+When play begins:
+	now the right hand status line is "[turn count]".
+
+First Part is a room.
+South of the First Part is the Arena.
+
+A stick is a kind of thing.  
+A span is a kind of value.  1000mm specifies a span.
+A stick has a span called length.
+The description of a stick is "It seems to be about [length] long."
+
+Box of Rods is a container in First Part. 
+Bag of Rods is a container in First Part.
+Sack of Rods is a container in First Part.
+
+[The example data, which might be more useful for the casual observer...]
+[
+There is a stick with length 979mm in the Box of Rods.
+There is a stick with length 366mm in the Box of Rods.
+There is a stick with length 299mm in the Box of Rods.
+There is a stick with length 675mm in the Box of Rods.
+There is a stick with length 1456mm in the Box of Rods.
+There is a stick with length 1721mm in the Box of Rods.
+]
+
+Exacting Frame is a container in the Arena.
+Exacting Frame has a span called requirement.
+The requirement of Exacting Frame is 2020mm.
+Exacting Frame has a span called fulfillment.
+The description of Exacting Frame is "It can accept exactly two sticks, as long as their combined lengths is exactly [requirement].  The current extent of everything in the Exacting Frame is [fulfillment]."
+
+Check inserting a stick into the Exacting Frame:
+	if the Exacting Frame contains two things, say "It already has two sticks in it -- no more will fit.  Yet..." instead;
+	if the Rug of Solution is in the Arena, say "But you've already solved the puzzle!" instead.
+	
+Rug of Solution is a container.  Rug of Solution is nowhere.
+An area is a kind of value. 10 sq mm specifies an area. A span times a span specifies an area.
+Rug of Solution has an area called footage.  [The footage of the Rug is 1 sq mm.]
+The description of the Rug of Solution is "There are two sticks on the Rug, at right angles -- they define an area of exactly [footage]."
+
+A slot is a kind of container.
+A slot has a span called length.
+The description of a slot is "If there's something in here, it has a length of [length]."
+
+The First Slot is a slot in the Rug of Solution.
+The Second Slot is a slot in the Rug of Solution.
+
+Carry out inserting a stick (called st) into a slot (called sl):
+	now the length of sl is the length of st;
+	say "Okay...";
+	continue the action.
+
+Carry out examining the Rug:
+	now the footage of the rug is the length of the First Slot times the length of the Second Slot;
+	continue the action.
+	
+Carry out inserting a stick into the Exacting Frame:
+	now the fulfillment of the Exacting Frame is the fulfillment of the Exacting Frame plus the length of the noun;
+	if the fulfillment of the Exacting Frame is the requirement of the Exacting Frame:
+		now the Rug of Solution is in the Arena;
+		say "*** The two sticks fit perfectly!  A rug appears... you should take the two sticks, put them in the slots, and then examine the rug. ***";		
+		now the box of rods is closed;
+		now the box of rods is locked;
+		[now the player carries every thing in the Exacting Frame;]
+		stop the action;
+	continue the action.
+	
+Carry out taking a stick which is in the Exacting Frame:
+	if the Rug of Solution is in the Arena, continue the action;
+	if the Exacting Frame contains two things:
+		say "Well that didn't work.  You take out the stick and put it into the Bag of Sticks, so that you'll know you've already tried this combination.";
+		now the noun is in the Bag of Rods;
+		now the fulfillment of the Exacting Frame is the fulfillment of the Exacting Frame minus the length of the noun;		
+		if the Box of Rods contains nothing:
+			say "Well, you've exhausted all these combinations.  Time to retire the stick in the frame, reset, and move on...";
+			if the Exacting Frame contains a stick:
+				let s be a random stick in the Exacting Frame;
+				now s is in the Sack of Rods;
+				now the fulfillment of the Exacting Frame is 0mm;
+			repeat with st running through sticks in the Bag of Rods:
+				now st is in the Box of Rods;
+	stop the action.
+
+
+Instead of taking a stick which is in the Box of Rods when the player carries a stick, say "Slow down there, Tex."
+
+
+test me with "n / take stick from box / s / put stick in frame / n / take stick from box / s /  put stick in frame / x frame / take stick from frame / l / i"
+		
+[
+test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.test me.
+
+]
+
+[DATA]
+
+There is a stick with length 1939mm in the Box of Rods.
+There is a stick with length 1585mm in the Box of Rods.
+There is a stick with length 1712mm in the Box of Rods.
+There is a stick with length 1600mm in the Box of Rods.
+There is a stick with length 1370mm in the Box of Rods.
+There is a stick with length 1447mm in the Box of Rods.
+There is a stick with length 1247mm in the Box of Rods.
+There is a stick with length 1446mm in the Box of Rods.
+There is a stick with length 1323mm in the Box of Rods.
+There is a stick with length 1713mm in the Box of Rods.
+There is a stick with length 1277mm in the Box of Rods.
+There is a stick with length 1946mm in the Box of Rods.
+There is a stick with length 1677mm in the Box of Rods.
+There is a stick with length 1428mm in the Box of Rods.
+There is a stick with length 1231mm in the Box of Rods.
+There is a stick with length 1481mm in the Box of Rods.
+There is a stick with length 1976mm in the Box of Rods.
+There is a stick with length 1709mm in the Box of Rods.
+There is a stick with length 1508mm in the Box of Rods.
+There is a stick with length 1668mm in the Box of Rods.
+There is a stick with length 1302mm in the Box of Rods.
+There is a stick with length 77mm in the Box of Rods.
+There is a stick with length 1351mm in the Box of Rods.
+There is a stick with length 1605mm in the Box of Rods.
+There is a stick with length 1999mm in the Box of Rods.
+There is a stick with length 1982mm in the Box of Rods.
+There is a stick with length 1583mm in the Box of Rods.
+There is a stick with length 1756mm in the Box of Rods.
+There is a stick with length 1957mm in the Box of Rods.
+There is a stick with length 1624mm in the Box of Rods.
+There is a stick with length 1745mm in the Box of Rods.
+There is a stick with length 1938mm in the Box of Rods.
+There is a stick with length 1784mm in the Box of Rods.
+There is a stick with length 1403mm in the Box of Rods.
+There is a stick with length 1642mm in the Box of Rods.
+There is a stick with length 1691mm in the Box of Rods.
+There is a stick with length 569mm in the Box of Rods.
+There is a stick with length 1762mm in the Box of Rods.
+There is a stick with length 1555mm in the Box of Rods.
+There is a stick with length 1937mm in the Box of Rods.
+There is a stick with length 1383mm in the Box of Rods.
+There is a stick with length 1897mm in the Box of Rods.
+There is a stick with length 1334mm in the Box of Rods.
+There is a stick with length 1965mm in the Box of Rods.
+There is a stick with length 1683mm in the Box of Rods.
+There is a stick with length 1475mm in the Box of Rods.
+There is a stick with length 1776mm in the Box of Rods.
+There is a stick with length 1791mm in the Box of Rods.
+There is a stick with length 1707mm in the Box of Rods.
+There is a stick with length 1987mm in the Box of Rods.
+There is a stick with length 1233mm in the Box of Rods.
+There is a stick with length 1416mm in the Box of Rods.
+There is a stick with length 1769mm in the Box of Rods.
+There is a stick with length 1345mm in the Box of Rods.
+There is a stick with length 1874mm in the Box of Rods.
+There is a stick with length 1255mm in the Box of Rods.
+There is a stick with length 1744mm in the Box of Rods.
+There is a stick with length 1944mm in the Box of Rods.
+There is a stick with length 1404mm in the Box of Rods.
+There is a stick with length 1360mm in the Box of Rods.
+There is a stick with length 1304mm in the Box of Rods.
+There is a stick with length 1417mm in the Box of Rods.
+There is a stick with length 1977mm in the Box of Rods.
+There is a stick with length 1656mm in the Box of Rods.
+There is a stick with length 790mm in the Box of Rods.
+There is a stick with length 1788mm in the Box of Rods.
+There is a stick with length 1353mm in the Box of Rods.
+There is a stick with length 1296mm in the Box of Rods.
+There is a stick with length 1673mm in the Box of Rods.
+There is a stick with length 1810mm in the Box of Rods.
+There is a stick with length 1684mm in the Box of Rods.
+There is a stick with length 1742mm in the Box of Rods.
+There is a stick with length 1425mm in the Box of Rods.
+There is a stick with length 1887mm in the Box of Rods.
+There is a stick with length 1444mm in the Box of Rods.
+There is a stick with length 1352mm in the Box of Rods.
+There is a stick with length 1229mm in the Box of Rods.
+There is a stick with length 1414mm in the Box of Rods.
+There is a stick with length 1493mm in the Box of Rods.
+There is a stick with length 1402mm in the Box of Rods.
+There is a stick with length 1947mm in the Box of Rods.
+There is a stick with length 1669mm in the Box of Rods.
+There is a stick with length 1412mm in the Box of Rods.
+There is a stick with length 1531mm in the Box of Rods.
+There is a stick with length 1474mm in the Box of Rods.
+There is a stick with length 1637mm in the Box of Rods.
+There is a stick with length 1314mm in the Box of Rods.
+There is a stick with length 1607mm in the Box of Rods.
+There is a stick with length 1829mm in the Box of Rods.
+There is a stick with length 1923mm in the Box of Rods.
+There is a stick with length 1949mm in the Box of Rods.
+There is a stick with length 1757mm in the Box of Rods.
+There is a stick with length 1307mm in the Box of Rods.
+There is a stick with length 1714mm in the Box of Rods.
+There is a stick with length 1748mm in the Box of Rods.
+There is a stick with length 1550mm in the Box of Rods.
+There is a stick with length 1372mm in the Box of Rods.
+There is a stick with length 1615mm in the Box of Rods.
+There is a stick with length 1235mm in the Box of Rods.
+There is a stick with length 1272mm in the Box of Rods.
+There is a stick with length 1408mm in the Box of Rods.
+There is a stick with length 1749mm in the Box of Rods.
+There is a stick with length 1687mm in the Box of Rods.
+There is a stick with length 1613mm in the Box of Rods.
+There is a stick with length 1528mm in the Box of Rods.
+There is a stick with length 1561mm in the Box of Rods.
+There is a stick with length 341mm in the Box of Rods.
+There is a stick with length 1308mm in the Box of Rods.
+There is a stick with length 1660mm in the Box of Rods.
+There is a stick with length 1667mm in the Box of Rods.
+There is a stick with length 1313mm in the Box of Rods.
+There is a stick with length 1991mm in the Box of Rods.
+There is a stick with length 1675mm in the Box of Rods.
+There is a stick with length 1394mm in the Box of Rods.
+There is a stick with length 1704mm in the Box of Rods.
+There is a stick with length 1303mm in the Box of Rods.
+There is a stick with length 1440mm in the Box of Rods.
+There is a stick with length 1592mm in the Box of Rods.
+There is a stick with length 1857mm in the Box of Rods.
+There is a stick with length 1752mm in the Box of Rods.
+There is a stick with length 1839mm in the Box of Rods.
+There is a stick with length 1397mm in the Box of Rods.
+There is a stick with length 1699mm in the Box of Rods.
+There is a stick with length 1426mm in the Box of Rods.
+There is a stick with length 1878mm in the Box of Rods.
+There is a stick with length 1759mm in the Box of Rods.
+There is a stick with length 1814mm in the Box of Rods.
+There is a stick with length 1096mm in the Box of Rods.
+There is a stick with length 372mm in the Box of Rods.
+There is a stick with length 1596mm in the Box of Rods.
+There is a stick with length 1500mm in the Box of Rods.
+There is a stick with length 1774mm in the Box of Rods.
+There is a stick with length 1627mm in the Box of Rods.
+There is a stick with length 1696mm in the Box of Rods.
+There is a stick with length 1851mm in the Box of Rods.
+There is a stick with length 1020mm in the Box of Rods.
+There is a stick with length 1819mm in the Box of Rods.
+There is a stick with length 1292mm in the Box of Rods.
+There is a stick with length 1616mm in the Box of Rods.
+There is a stick with length 1672mm in the Box of Rods.
+There is a stick with length 1279mm in the Box of Rods.
+There is a stick with length 1543mm in the Box of Rods.
+There is a stick with length 1526mm in the Box of Rods.
+There is a stick with length 1682mm in the Box of Rods.
+There is a stick with length 1568mm in the Box of Rods.
+There is a stick with length 1582mm in the Box of Rods.
+There is a stick with length 1921mm in the Box of Rods.
+There is a stick with length 922mm in the Box of Rods.
+There is a stick with length 1773mm in the Box of Rods.
+There is a stick with length 1482mm in the Box of Rods.
+There is a stick with length 1238mm in the Box of Rods.
+There is a stick with length 1973mm in the Box of Rods.
+There is a stick with length 1517mm in the Box of Rods.
+There is a stick with length 1909mm in the Box of Rods.
+There is a stick with length 409mm in the Box of Rods.
+There is a stick with length 1634mm in the Box of Rods.
+There is a stick with length 1468mm in the Box of Rods.
+There is a stick with length 1445mm in the Box of Rods.
+There is a stick with length 1801mm in the Box of Rods.
+There is a stick with length 1631mm in the Box of Rods.
+There is a stick with length 1407mm in the Box of Rods.
+There is a stick with length 1820mm in the Box of Rods.
+There is a stick with length 1603mm in the Box of Rods.
+There is a stick with length 1495mm in the Box of Rods.
+There is a stick with length 1333mm in the Box of Rods.
+There is a stick with length 1241mm in the Box of Rods.
+There is a stick with length 1849mm in the Box of Rods.
+There is a stick with length 82mm in the Box of Rods.
+There is a stick with length 1339mm in the Box of Rods.
+There is a stick with length 1413mm in the Box of Rods.
+There is a stick with length 90mm in the Box of Rods.
+There is a stick with length 1662mm in the Box of Rods.
+There is a stick with length 1291mm in the Box of Rods.
+There is a stick with length 1740mm in the Box of Rods.
+There is a stick with length 1340mm in the Box of Rods.
+There is a stick with length 1365mm in the Box of Rods.
+There is a stick with length 2003mm in the Box of Rods.
+There is a stick with length 1546mm in the Box of Rods.
+There is a stick with length 1621mm in the Box of Rods.
+There is a stick with length 1650mm in the Box of Rods.
+There is a stick with length 1518mm in the Box of Rods.
+There is a stick with length 1807mm in the Box of Rods.
+There is a stick with length 1382mm in the Box of Rods.
+There is a stick with length 1433mm in the Box of Rods.
+There is a stick with length 1968mm in the Box of Rods.
+There is a stick with length 1940mm in the Box of Rods.
+There is a stick with length 1986mm in the Box of Rods.
+There is a stick with length 1437mm in the Box of Rods.
+There is a stick with length 1651mm in the Box of Rods.
+There is a stick with length 1237mm in the Box of Rods.
+There is a stick with length 1862mm in the Box of Rods.
+There is a stick with length 1409mm in the Box of Rods.
+There is a stick with length 1200mm in the Box of Rods.
+There is a stick with length 2002mm in the Box of Rods.
+There is a stick with length 2009mm in the Box of Rods.
+There is a stick with length 1735mm in the Box of Rods.
+There is a stick with length 1487mm in the Box of Rods.
+There is a stick with length 1706mm in the Box of Rods.
+There is a stick with length 1643mm in the Box of Rods.
+There is a stick with length 1505mm in the Box of Rods.
+
